@@ -1,0 +1,366 @@
+<?xml version="1.0" ?>
+<data>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:21:57</datetime>
+		<expense>Foodware</expense>
+		<site>Hoyo Shop</site>
+		<product>Nahida Mug</product>
+		<quantity>1</quantity>
+		<price>159.99</price>
+		<totalprice>159.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:22:20</datetime>
+		<expense>Clothing</expense>
+		<site>Hoyo Shop</site>
+		<product>Zhongli Shirt</product>
+		<quantity>3</quantity>
+		<price>399.99</price>
+		<totalprice>1199.97</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:25:49</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Klee Plushie</product>
+		<quantity>10</quantity>
+		<price>599.99</price>
+		<totalprice>5999.90</totalprice>
+	</user>
+
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:53:33</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Statue of Her Excellency, the Almighty Narukami Ogosho, God of Thunder</product>
+		<quantity>2</quantity>
+		<price>999.99</price>
+		<totalprice>1999.98</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:54:22</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Cat Scaramouche Plushie</product>
+		<quantity>1</quantity>
+		<price>599.99</price>
+		<totalprice>599.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:54:36</datetime>
+		<expense>Accessories</expense>
+		<site>Hoyo Shop</site>
+		<product>Kamisato Ayaka Fan</product>
+		<quantity>1</quantity>
+		<price>499.99</price>
+		<totalprice>499.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:54:50</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Lyney Cards</product>
+		<quantity>1</quantity>
+		<price>399.99</price>
+		<totalprice>399.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:57:37</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Morax Exuvia Plushie</product>
+		<quantity>1</quantity>
+		<price>599.99</price>
+		<totalprice>599.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:57:52</datetime>
+		<expense>Accessories</expense>
+		<site>Hoyo Shop</site>
+		<product>Ganyu Pin</product>
+		<quantity>1</quantity>
+		<price>149.99</price>
+		<totalprice>149.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:58:21</datetime>
+		<expense>Clothing</expense>
+		<site>Hoyo Shop</site>
+		<product>Kaedehara Kazuha Hoodie</product>
+		<quantity>2</quantity>
+		<price>1499.99</price>
+		<totalprice>2999.98</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:59:14</datetime>
+		<expense>Clothing</expense>
+		<site>Hoyo Shop</site>
+		<product>Wanderer Pants</product>
+		<quantity>3</quantity>
+		<price>1299.99</price>
+		<totalprice>3899.97</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 09:59:45</datetime>
+		<expense>Accessories</expense>
+		<site>Hoyo Shop</site>
+		<product>Venti Keychain</product>
+		<quantity>1</quantity>
+		<price>119.99</price>
+		<totalprice>119.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 10:34:19</datetime>
+		<expense>Foodware</expense>
+		<site>Hoyo Shop</site>
+		<product>Nahida Mug</product>
+		<quantity>1</quantity>
+		<price>159.99</price>
+		<totalprice>159.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 10:34:23</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Klee Plushie</product>
+		<quantity>1</quantity>
+		<price>599.99</price>
+		<totalprice>599.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 10:34:24</datetime>
+		<expense>Accessories</expense>
+		<site>Hoyo Shop</site>
+		<product>Venti Keychain</product>
+		<quantity>1</quantity>
+		<price>119.99</price>
+		<totalprice>119.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 10:56:27</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Statue of Her Excellency, the Almighty Narukami Ogosho, God of Thunder</product>
+		<quantity>1</quantity>
+		<price>999.99</price>
+		<totalprice>999.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 11:12:55</datetime>
+		<expense>Foodware</expense>
+		<site>Hoyo Shop</site>
+		<product>Nahida Mug</product>
+		<quantity>1</quantity>
+		<price>159.99</price>
+		<totalprice>159.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 11:28:39</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Morax Exuvia Plushie</product>
+		<quantity>1</quantity>
+		<price>599.99</price>
+		<totalprice>599.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 11:44:33</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Cat Scaramouche Plushie</product>
+		<quantity>1</quantity>
+		<price>599.99</price>
+		<totalprice>599.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 14:13:38</datetime>
+		<expense>Accessories</expense>
+		<site>League Store</site>
+		<product>Teemo Hat</product>
+		<quantity>1</quantity>
+		<price>149.75</price>
+		<totalprice>149.75</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 14:14:01</datetime>
+		<expense>Food</expense>
+		<site>League Store</site>
+		<product>Pantheon Cake</product>
+		<quantity>1</quantity>
+		<price>999.75</price>
+		<totalprice>999.75</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 16:00:09</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Klee Plushie</product>
+		<quantity>2</quantity>
+		<price>599.99</price>
+		<totalprice>1199.98</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-27 17:52:19</datetime>
+		<expense>Food</expense>
+		<site>League Store</site>
+		<product>Pantheon Cake</product>
+		<quantity>5</quantity>
+		<price>999.75</price>
+		<totalprice>4998.75</totalprice>
+	</user>
+
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-28 14:22:44</datetime>
+		<expense>Toys</expense>
+		<site>League Store</site>
+		<product>Kayn Chibi Action Figure</product>
+		<quantity>1</quantity>
+		<price>599.75</price>
+		<totalprice>599.75</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-28 17:25:28</datetime>
+		<expense>Toys</expense>
+		<site>League Store</site>
+		<product>Kayn Chibi Action Figure</product>
+		<quantity>1</quantity>
+		<price>599.75</price>
+		<totalprice>599.75</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-28 17:26:24</datetime>
+		<expense>Foodware</expense>
+		<site>Hoyo Shop</site>
+		<product>Nahida Mug</product>
+		<quantity>1</quantity>
+		<price>159.99</price>
+		<totalprice>159.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-28 17:26:30</datetime>
+		<expense>Foodware</expense>
+		<site>Hoyo Shop</site>
+		<product>Nahida Mug</product>
+		<quantity>5</quantity>
+		<price>159.99</price>
+		<totalprice>799.95</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-28 22:04:16</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Klee Plushie</product>
+		<quantity>1</quantity>
+		<price>599.99</price>
+		<totalprice>599.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-28 22:09:02</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Klee Plushie</product>
+		<quantity>1</quantity>
+		<price>599.99</price>
+		<totalprice>599.99</totalprice>
+	</user>
+
+	<user>
+		<username>username</username>
+		<password>password</password>
+		<datetime>2023-11-28 22:12:00</datetime>
+		<expense>Toys</expense>
+		<site>Hoyo Shop</site>
+		<product>Klee Plushie</product>
+		<quantity>1</quantity>
+		<price>599.99</price>
+		<totalprice>599.99</totalprice>
+	</user>
+
+</data>

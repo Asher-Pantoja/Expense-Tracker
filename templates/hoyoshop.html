@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoyo Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+			height: 2400px;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product {
+			border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: 250px;
+            margin-bottom: 10px;
+        }
+
+        .cart {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        button {
+			border-radius: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+		}
+		
+		button:hover{
+			background-color: #4e8250;
+		}
+		
+		button:active{
+			background-color: #90ff95;
+		}
+		
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgb(0, 0, 0);
+			background-color: rgba(0, 0, 0, 0.7);
+		}
+
+		.modal-content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #fefefe;
+			margin: 0% auto;
+			padding: 25px;
+			border: 1px solid #888;
+			width: 100%;
+			height: 85%;
+			animation-name: modalopen;
+			animation-duration: 0.4s;
+		}
+
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		@keyframes modalopen {
+			from {opacity: 0}
+			to {opacity: 1}
+		}
+		
+		iframe{
+		width: 96%; 
+		height: 85%; 
+		margin: 3% auto; 
+		position: absolute;
+		}
+		
+		.overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .overlay-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .overlay button {
+            border-radius: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Hoyo Shop</h1>
+</header>
+
+<div class="container">
+    <div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\zhongli_shirt.jpg" alt="Product 1">
+			<h2>Zhongli Shirt</h2>
+			<input type="hidden" name="product" value="Zhongli Shirt">
+			<input type="hidden" name="expense" value="Clothing">
+			<p>P399.99</p>
+			<input type="hidden" name="price" value="399.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity1" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Zhongli Shirt', 399.99, document.getElementById('quantity1').value)">Add to Cart</button>
+		</form>
+    </div>
+
+    <div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\nahida_mug.jpg" alt="Product 2">
+			<h2>Nahida Mug</h2>
+			<input type="hidden" name="product" value="Nahida Mug">
+			<input type="hidden" name="expense" value="Foodware">
+			<p>P159.99</p>
+			<input type="hidden" name="price" value="159.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity2" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Nahida Mug', 159.99, document.getElementById('quantity2').value)">Add to Cart</button>
+		</form>
+    </div>
+
+    <div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\klee_plushie.jpg" alt="Product 3">
+			<h2>Klee Plushie</h2>
+			<input type="hidden" name="product" value="Klee Plushie">
+			<input type="hidden" name="expense" value="Toys">
+			<p>P599.99</p>
+			<input type="hidden" name="price" value="599.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity3" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Klee Plushie', 599.99, document.getElementById('quantity3').value)")>Add to Cart</button>
+		</form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\venti_keychain.jpg" alt="Product 4">
+			<h2>Venti Keychain</h2>
+			<input type="hidden" name="product" value="Venti Keychain">
+			<input type="hidden" name="expense" value="Accessories">
+			<p>P119.99</p>
+			<input type="hidden" name="price" value="119.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity4" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Venti Keychain', 119.99, document.getElementById('quantity4').value)")>Add to Cart</button>
+		</form>
+    </div>
+
+	<div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\wanderer_pants.jpg" alt="Product 5">
+			<h2>Wanderer Pants</h2>
+			<input type="hidden" name="product" value="Wanderer Pants">
+			<input type="hidden" name="expense" value="Clothing">
+			<p>P1299.99</p>
+			<input type="hidden" name="price" value="1299.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity5" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Wanderer Pants', 1299.99, document.getElementById('quantity5').value)")>Add to Cart</button>
+		</form>
+    </div>
+
+	<div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\kazuha_hoodie.jpg" alt="Product 6">
+			<h2>Kaedehara Kazuha Hoodie</h2>
+			<input type="hidden" name="product" value="Kaedehara Kazuha Hoodie">
+			<input type="hidden" name="expense" value="Clothing">
+			<p>P1499.99</p>
+			<input type="hidden" name="price" value="1499.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity6" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Kaedehara Kazuha Hoodie', 1499.99, document.getElementById('quantity6').value)")>Add to Cart</button>
+		</form>
+    </div>
+</div>
+
+<div class="container">
+	<div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\ganyu_pin.jpg" alt="Product 7">
+			<h2>Ganyu Pin</h2>
+			<input type="hidden" name="product" value="Ganyu Pin">
+			<input type="hidden" name="expense" value="Accessories">
+			<p>P149.99</p>
+			<input type="hidden" name="price" value="149.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity7" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Ganyu Pin', 149.99, document.getElementById('quantity7').value)")>Add to Cart</button>
+		</form>
+    </div>
+	
+    <div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\morax_plushie.jpg" alt="Product 8">
+			<h2>Morax Exuvia Plushie</h2>
+			<input type="hidden" name="product" value="Morax Exuvia Plushie">
+			<input type="hidden" name="expense" value="Toys">
+			<p>P599.99</p>
+			<input type="hidden" name="price" value="599.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity8" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Morax Exuvia Plushie', 599.99, document.getElementById('quantity8').value)")>Add to Cart</button>
+		</form>
+    </div>
+
+    <div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\lyney_cards.jpg" alt="Product 9">
+			<h2>Lyney Cards</h2>
+			<input type="hidden" name="product" value="Lyney Cards">
+			<input type="hidden" name="expense" value="Toys">
+			<p>P399.99</p>
+			<input type="hidden" name="price" value="399.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity9" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Lyney Cards', 399.99, document.getElementById('quantity9').value)")>Add to Cart</button>
+		</form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\ayaka_fan.jpg" alt="Product 10">
+			<h2>Kamisato Ayaka Fan</h2>
+			<input type="hidden" name="product" value="Kamisato Ayaka Fan">
+			<input type="hidden" name="expense" value="Accessories">
+			<p>P499.99</p>
+			<input type="hidden" name="price" value="499.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity10" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Ayaka Fan', 499.99, document.getElementById('quantity10').value)">Add to Cart</button>
+		</form>
+    </div>
+
+    <div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\scaramouche_plush.jpg" alt="Product 11">
+			<h2>Cat Scaramouche Plushie</h2>
+			<input type="hidden" name="product" value="Cat Scaramouche Plushie">
+			<input type="hidden" name="expense" value="Toys">
+			<p>P599.99</p>
+			<input type="hidden" name="price" value="599.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity11" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Cat Scaramouche Plushie', 599.99, document.getElementById('quantity11').value)">Add to Cart</button>
+		</form>
+    </div>
+
+    <div class="product">
+		<form action="{{ url_for('insert') }}" method="POST">
+			<input type="hidden" name="username" value="username">
+			<input type="hidden" name="password" value="password">
+			<img src="\static\js\raiden_figure.jpg" alt="Product 12">
+			<h2>Statue of Her Excellency, the Almighty Narukami Ogosho, God of Thunder</h2>
+			<input type="hidden" name="product" value="Statue of Her Excellency, the Almighty Narukami Ogosho, God of Thunder">
+			<input type="hidden" name="expense" value="Toys">
+			<p>P999.99</p>
+			<input type="hidden" name="price" value="999.99">
+			<input type="hidden" name="site" value="Hoyo Shop">
+			<label for="quantity">Quantity:</label>
+			<input class="form-control" type="number" id="quantity12" name="quantity" min="1" value="1">
+			<br><br>
+			<button type="submit" onclick="addToCart('Statue of Her Excellency, the Almighty Narukami Ogosho, God of Thunder', 999.99, document.getElementById('quantity12').value)">Add to Cart</button>
+		</form>
+    </div>
+</div>
+
+<div class="overlay" id="overlay">
+    <div class="overlay-content">
+        <p>Are you sure you want to add this item to the cart?</p>
+        <button style="width:50px; margin:5px" onmouseover="this.style.backgroundColor='#4e8250'" onmouseout="this.style.backgroundColor='#4CAF50'" onmousedown="this.style.backgroundColor='#90ff95'" onmouseup="this.style.backgroundColor='#90ff95'" id="confirmAddToCartButton">Yes</button>
+        <button style="width:50px; margin:5px" onmouseover="this.style.backgroundColor='#4e8250'" onmouseout="this.style.backgroundColor='#4CAF50'" onmousedown="this.style.backgroundColor='#90ff95'" onmouseup="this.style.backgroundColor='#90ff95'" id="cancelAddToCartButton">No</button>
+    </div>
+</div>
+
+<button id="openButton"
+		style="color: #fff; background-color: #db88cd; position: fixed; top: 10px; right: 10px; border-radius:5px; height:50px"
+		onmouseover="this.style.backgroundColor='#ffb0f2'"
+        onmouseout="this.style.backgroundColor='#db88cd'"
+        onmousedown="this.style.backgroundColor='#2e192b'"
+        onmouseup="this.style.backgroundColor='#db88cd'">Open Expense Tracker</button>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeButton">&times;</span>
+        <div id="modalContent">
+            <iframe src="http://127.0.0.1:5000"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+	function addToCart(productName, price, quantity) {
+		const cartItem = document.createElement('li');
+		cartItem.textContent = `${quantity} ${productName} - ${price}`;
+		document.getElementById('cart').appendChild(cartItem);
+	}
+	document.addEventListener('DOMContentLoaded', function () {
+    var openButton = document.getElementById('openButton');
+    var modal = document.getElementById('myModal');
+    var closeButton = document.getElementById('closeButton');
+
+    openButton.addEventListener('click', function () {
+        modal.style.display = 'block';
+    });
+
+    closeButton.addEventListener('click', function () {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var overlay = document.getElementById('overlay');
+        var confirmAddToCartButton = document.getElementById('confirmAddToCartButton');
+        var cancelAddToCartButton = document.getElementById('cancelAddToCartButton');
+        var currentProductForm;
+
+        confirmAddToCartButton.addEventListener('click', function () {
+            overlay.style.display = 'none';
+            if (currentProductForm) {
+                currentProductForm.submit();
+            }
+        });
+
+        cancelAddToCartButton.addEventListener('click', function () {
+            overlay.style.display = 'none';
+            currentProductForm = null;
+        });
+
+        var productForms = document.querySelectorAll('.product form');
+
+        productForms.forEach(function (form) {
+            var addToCartButton = form.querySelector('button[type="submit"]');
+            addToCartButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                currentProductForm = form;
+                overlay.style.display = 'flex';
+            });
+        });
+    });
+</script>
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>

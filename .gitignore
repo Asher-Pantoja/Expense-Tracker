@@ -1,0 +1,10 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+get-pip.py
+tempCodeRunnerFile.*
+
+# Third-party reference code, not part of this project
+Others/

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>League Store</title>
+        <link rel="stylesheet" href="website2.css">
+        <script src="https://kit.fontawesome.com/92d70a2fd8.js" crossorigin="anonymous"></script>
+        <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'poppins', sans-serif;
+            font-size: 18px;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .header{
+            height: 80px;
+            width: 70%;
+            background-color: goldenrod;
+            border-radius: 3px;
+            margin: 30px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+        }
+        .header .logo{
+            font-size: 30px;
+            font-weight: bold;
+            color: white;
+        }
+        .cart{
+            display: flex;
+            background-color: white;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px 10px;
+            border-radius: 3px;
+            width: 80px;
+        }
+        .fa-solid{
+            color: goldenrod;
+        }
+        .cart p{
+            height: 22px;
+            width: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            background-color: goldenrod;
+            color: white;
+        }
+        .container{
+            display: flex;
+            flex-wrap: wrap;
+            width: 70%;
+            margin-bottom: 30px;
+            justify-content: space-around;
+            padding: 1px;
+        }
+        #root{
+            width: 60%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+        }
+        .sidebar{
+            width: 40%;
+            border-radius: 5px;
+            background-color: #eee;
+            margin-left: 20px;
+            padding: 15px;
+            text-align: center;
+        }
+        .head{
+            background-color: goldenrod;
+            border-radius: 3px;
+            height: 40px;
+            padding: 10px;
+            margin-bottom: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        .foot{
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0px;
+            padding: 10px 0px;
+            border-top: 1px solid #333;
+        }
+        .product{
+            width: 300px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid goldenrod;
+            border-radius: 5px;
+            padding:20px;
+            margin-left: 25px;
+            margin-right: 25px;
+            margin-bottom: 80px;
+
+        }
+        .img-box{
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .images{
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .bottom{
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 110px;
+        }
+        h2{
+            font-size: 20px;
+            color: red;
+        }
+        button{
+			border-radius: 5px;
+            background-color: goldenrod;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            margin-top: auto;
+        }
+        button:hover{
+            background-color: #333;
+        }
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgb(0, 0, 0);
+			background-color: rgba(0, 0, 0, 0.7);
+		}
+
+		.modal-content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #fefefe;
+			margin: 0% auto;
+			padding: 25px;
+			border: 1px solid #888;
+			width: 100%;
+			height: 85%;
+			animation-name: modalopen;
+			animation-duration: 0.4s;
+		}
+
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		@keyframes modalopen {
+			from {opacity: 0}
+			to {opacity: 1}
+		}
+		
+		iframe{
+		width: 96%; 
+		height: 85%; 
+		margin: 3% auto; 
+		position: absolute;
+		}
+		
+		.overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .overlay-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .overlay button {
+            border-radius: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <p class="logo">League Store</p>
+            <div class="cart"><i class="fa-solid fa-cart-shopping"></i><p id="count">0</p></div>
+        </div>
+        <div class="container">
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\teemo-hat.png" alt="Product 1">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">Teemo Hat</p>
+                        <input type="hidden" name="product" value="Teemo Hat">
+                        <input type="hidden" name="expense" value="Accessories">
+                        <h2 class="price">P149.75</h2>
+                        <input type="hidden" name="price" value="149.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity1" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('Teemo Hat', 149.75, document.getElementById('quantity1').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\kayn-figure.png" alt="Product 2">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">Kayn Chibi Action Figure</p>
+                        <input type="hidden" name="product" value="Kayn Chibi Action Figure">
+                        <input type="hidden" name="expense" value="Toys">
+                        <h2 class="price">P599.75</h2>
+                        <input type="hidden" name="price" value="599.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity2" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('Kayn Chibi Action Figure', 599.75, document.getElementById('quantity2').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\lol-cake.png" alt="Product 3">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">Pantheon Cake</p>
+                        <input type="hidden" name="product" value="Pantheon Cake">
+                        <input type="hidden" name="expense" value="Food">
+                        <h2 class="price">P999.75</h2>
+                        <input type="hidden" name="price" value="999.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity3" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('Pantheon Cake', 999.75, document.getElementById('quantity3').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\league-coke.png" alt="Product 4">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">League Coke</p>
+                        <input type="hidden" name="product" value="League Coke">
+                        <input type="hidden" name="expense" value="Food">
+                        <h2 class="price">P29.99</h2>
+                        <input type="hidden" name="price" value="29.99">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity4" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('League Coke', 29.99, document.getElementById('quantity4').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\jinx-backpack.jpg" alt="Product 5">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">Jinx Backpack</p>
+                        <input type="hidden" name="product" value="Jinx Backpack">
+                        <input type="hidden" name="expense" value="Utility">
+                        <h2 class="price">P349.75</h2>
+                        <input type="hidden" name="price" value="349.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity5" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('Jinx Backpack', 349.75, document.getElementById('quantity5').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\shaco-tshirt.png" alt="Product 6">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">Shaco T-Shirt</p>
+                        <input type="hidden" name="product" value="Shaco T-Shirt">
+                        <input type="hidden" name="expense" value="Clothing">
+                        <h2 class="price">P199.75</h2>
+                        <input type="hidden" name="price" value="199.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity6" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('Shaco T-Shirt', 199.75, document.getElementById('quantity6').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\league-hoodie.png" alt="Product 6">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">League of Legends Hoodie</p>
+                        <input type="hidden" name="product" value="League of Legends Hoodie">
+                        <input type="hidden" name="expense" value="Clothing">
+                        <h2 class="price">P449.75</h2>
+                        <input type="hidden" name="price" value="499.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity6" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('League of Legends Hoodie', 499.75, document.getElementById('quantity6').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\lol-secretlab.webp" alt="Product 6">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">LoL Secret Lab Gaming Chair</p>
+                        <input type="hidden" name="product" value="LoL Secret Lab Gaming Chair">
+                        <input type="hidden" name="expense" value="Furniture">
+                        <h2 class="price">P3499.75</h2>
+                        <input type="hidden" name="price" value="3499.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity6" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('LoL Secret Lab Gaming Chair', 3499.75, document.getElementById('quantity6').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\ziggs-figure.webp" alt="Product 6">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">Ziggs Action Figure</p>
+                        <input type="hidden" name="product" value="Ziggs Action Figure">
+                        <input type="hidden" name="expense" value="Toys">
+                        <h2 class="price">P1499.75</h2>
+                        <input type="hidden" name="price" value="1499.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity6" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('Ziggs Action Figure', 1499.75, document.getElementById('quantity6').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\ruination-novel.png" alt="Product 6">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">Ruination (Novel)</p>
+                        <input type="hidden" name="product" value="Ruination Novel">
+                        <input type="hidden" name="expense" value="Printed Content">
+                        <h2 class="price">P1299.75</h2>
+                        <input type="hidden" name="price" value="1299.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity6" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('Ruination Novel', 1299.75, document.getElementById('quantity6').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\yone-figure.png" alt="Product 6">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">Yone Chibi Figurine</p>
+                        <input type="hidden" name="product" value="Yone Chibi Figurine">
+                        <input type="hidden" name="expense" value="Toys">
+                        <h2 class="price">P599.75</h2>
+                        <input type="hidden" name="price" value="599.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity6" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('Yone Chibi Figurine', 599.75, document.getElementById('quantity6').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+            <div class="product">
+                <form action="{{ url_for('insert') }}" method="POST">
+                    <input type="hidden" name="username" value="username">
+                    <input type="hidden" name="password" value="password">
+                    <div class="img-box">
+                        <img class="images" src="\static\js\yone-action.png" alt="Product 6">
+                    </div>
+                    <div class="bottom">
+                        <p class="title">Yone Action Figure</p>
+                        <input type="hidden" name="product" value="Yone Action Figure">
+                        <input type="hidden" name="expense" value="Toys">
+                        <h2 class="price">P2999.75</h2>
+                        <input type="hidden" name="price" value="2999.75">
+                        <input type="hidden" name="site" value="League Store">
+                        <label for="quantity">Quantity:</label>
+                        <input class="form-control" type="number" id="quantity6" name="quantity" min="1" value="1">
+                        <br><br><button type="submit" onclick="addToCart('Yone Action Figure', 2999.75, document.getElementById('quantity6').value)">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+		
+		<div class="overlay" id="overlay">
+			<div class="overlay-content">
+				<p>Are you sure you want to add this item to the cart?</p>
+				<button style="width:50px; margin:5px; background-color: goldenrod;" id="confirmAddToCartButton">Yes</button>
+				<button style="width:50px; margin:5px; background-color: goldenrod;" id="cancelAddToCartButton">No</button>
+			</div>
+		</div>
+
+        <button id="openButton"
+		    style="color: #fff; background-color: #db88cd; position: fixed; top: 10px; right: 10px;" 
+		    onmouseover="this.style.backgroundColor='#ffb0f2'"
+            onmouseout="this.style.backgroundColor='#db88cd'"
+            onmousedown="this.style.backgroundColor='#2e192b'"
+            onmouseup="this.style.backgroundColor='#db88cd'">Open Expense Tracker</button>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeButton">&times;</span>
+                <div id="modalContent">
+                    <iframe src="http://127.0.0.1:5000"></iframe>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var openButton = document.getElementById('openButton');
+                var modal = document.getElementById('myModal');
+                var closeButton = document.getElementById('closeButton');
+
+                openButton.addEventListener('click', function () {
+                    modal.style.display = 'block';
+                });
+
+                closeButton.addEventListener('click', function () {
+                    modal.style.display = 'none';
+                });
+
+                window.addEventListener('click', function (event) {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+			
+			document.addEventListener('DOMContentLoaded', function () {
+				var overlay = document.getElementById('overlay');
+				var confirmAddToCartButton = document.getElementById('confirmAddToCartButton');
+				var cancelAddToCartButton = document.getElementById('cancelAddToCartButton');
+				var currentProductForm;
+
+				confirmAddToCartButton.addEventListener('click', function () {
+					overlay.style.display = 'none';
+					if (currentProductForm) {
+						currentProductForm.submit();
+					}
+				});
+
+				cancelAddToCartButton.addEventListener('click', function () {
+					overlay.style.display = 'none';
+					currentProductForm = null;
+				});
+
+				var productForms = document.querySelectorAll('.product form');
+
+				productForms.forEach(function (form) {
+					var addToCartButton = form.querySelector('button[type="submit"]');
+					addToCartButton.addEventListener('click', function (event) {
+						event.preventDefault();
+						currentProductForm = form;
+						overlay.style.display = 'flex';
+					});
+				});
+			});
+        </script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    </body>
+</html>

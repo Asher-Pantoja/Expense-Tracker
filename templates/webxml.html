@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>User Expenses</title>
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <style>
+        #expense_filter,
+        #site_filter,
+        #search_query {
+            width: 200px;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #762869;
+        }
+
+		.filter-group {
+			display: flex;
+			align-items: center;
+			vertical-align: top;
+		}
+
+		.filterbutton {
+			width: 70px;
+			height: 34px;
+			border: none;
+			border-radius: 5px;
+			background-color: #762869;
+			color: #fff;
+			margin-left: 0px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.filterbutton:hover {
+			background-color: #db88cd;
+		}
+
+		.filterbutton:active {
+			background-color: #ffb0f2;
+		}
+
+        button {
+            color: #fff;
+            background-color: #762869;
+        }
+
+        button:hover {
+            background-color: #db88cd;
+        }
+
+        button:active {
+            background-color: #ffb0f2;
+        }
+
+        option {
+            background-color: #ffffff;
+        }
+
+        option:hover,
+        option:focus {
+            background-color: #fcdcf7;
+            color: #000;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border: 1px solid;
+            border-color: #c273b9;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.8);
+        }
+
+        canvas {
+            width: 70%;
+        }
+		
+    </style>
+</head>
+
+<body>
+    <div class="container" style="width: 1460px; height: 678px;">
+        <div id="expenseSummarySection">
+            <div class="well text-center" style="color:#251024; display:flex; width:1170px; margin:auto; height:100px">
+                <button style="color: #fff; border:none; background-color: #db88cd; position: relative; top: 10px; left: 975px; border-radius:5px; height:50px"
+                    onmouseover="this.style.backgroundColor='#ffb0f2'"
+                    onmouseout="this.style.backgroundColor='#db88cd'"
+                    onmousedown="this.style.backgroundColor='#2e192b'"
+                    onmouseup="this.style.backgroundColor='#db88cd'" onclick="toggleVisibility()">Expense Tracker Data</button>
+                <h1 style="color:#fff; position:relative; top:0%; left: 25%">Expense Summary</h1>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <canvas id="expenseGraphCanvas" class="canvas-container" width="200"></canvas>
+                    <center>
+                        <div id="totalExpenses" style="width: 30%; text-align: center;">
+                            Total Expenses: <span id="totalExpensesAmount"></span>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+        <div id="expenseTrackerSection" style="display: none;">
+            <div class="well text-center"
+                style="color:#251024; display:flex; width:1170px; margin:auto; height:100px">
+                <button style="color: #fff; border:none; background-color: #db88cd; position: relative; top: 10px; left: 975px; border-radius:5px; height:50px"
+                    onmouseover="this.style.backgroundColor='#ffb0f2'"
+                    onmouseout="this.style.backgroundColor='#db88cd'"
+                    onmousedown="this.style.backgroundColor='#2e192b'"
+                    onmouseup="this.style.backgroundColor='#db88cd'" onclick="toggleVisibility()">Expense Summary
+                    </button>
+                <h1 style="color:#fff; position:relative; top:0%; left: 25%">Expense Tracker Data</h1>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <form action="{{ url_for('index') }}" method="GET" id="filterForm">
+                                    <div
+                                        style="margin:5px; top:-10%;left:-2%;width:150px;height:40px;position:relative;border-radius:5px;z-index:2;"
+                                        class="form-group">
+                                        <label for="selected_date">Filter by Date:</label>
+                                        <input class="form-control" type="date" name="selected_date" id="selected_date"
+                                            value="{{ request.args.get('selected_date') }}">
+                                    </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div
+                                    style="margin:5px; top:-10%;left:-11%;width:200px;height:40px;position:relative;border-radius:5px;z-index:2;"
+                                    class="form-group">
+                                    <label for="expense_filter">Filter by Expense Type:</label>
+                                    <select name="expense_filter" style="width:200px" id="expense_filter"
+                                        class="form-control">
+                                        <option value="">All</option>
+                                        {% for expense_type in expense_types %}
+                                        <option value="{{ expense_type }}"
+                                            {% if request.args.get('expense_filter') == expense_type %}selected{% endif %}>{{ expense_type }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div
+                                    style="margin:5px; top:-10%;left:-3.5%;width:200px;height:40px;position:relative;border-radius:5px;z-index:2;"
+                                    class="form-group">
+                                    <label for="site_filter">Filter by Site Name:</label>
+                                    <select name="site_filter" style="width:200px" id="site_filter"
+                                        class="form-control">
+                                        <option value="">All</option>
+                                        {% for site_name in site_names %}
+                                        <option value="{{ site_name }}"
+                                            {% if request.args.get('site_filter') == site_name %}selected{% endif %}>{{ site_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+							<div class="col-md-3">
+								<div style="margin: 5px; top: -10%; right: -3%; width: 1000px; height: 40px; position: relative; border-radius: 5px; z-index: 2;"
+									class="form-group">
+									<label for="search_query">Search by Product:</label>
+									<div class="input-group">
+										<input style="border-radius:5px; margin-right:5px" type="text" class="form-control" name="search_query" id="search_query" placeholder=" "
+											value="{{ request.args.get('search_query', '') }}">
+										<button style="left: -30%; width: 50px;" class="filterbutton">Filter</button>
+									</div>
+								</div>
+							</div>
+							
+								
+						</div>
+						
+						<div class="row">
+							<div class="col-md-3">
+                                <br>
+                                <div style="margin:5px; left:-2.5%;width:400px;height:15px;position:relative;border-radius:15px;z-index:2;"
+                                    class="form-group">
+                                    <label>Sort by Recency:</label>
+                                    <a href="{{ url_for('index', selected_date=request.args.get('selected_date'), expense_filter=request.args.get('expense_filter'), site_filter=request.args.get('site_filter'), search_query=request.args.get('search_query'), order_by='asc') }}">Oldest (default) ↓</a>
+                                    <a href="{{ url_for('index', selected_date=request.args.get('selected_date'), expense_filter=request.args.get('expense_filter'), site_filter=request.args.get('site_filter'), search_query=request.args.get('search_query'), order_by='desc') }}">Recent ↓</a>
+                                    <a href="{{ url_for('index') }}">Clear Filters</a>
+                                </div>
+                            </div>
+							
+                        </div>
+
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-success alert-dismissable" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                <span aria-hidden="true">x</span>
+                            </button>
+                            {{message}}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+
+                        <style>
+                            tr:nth-child(even) {
+                                background-color: #ffe3fc;
+                            }
+
+                            table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                margin-bottom: 20px;
+                            }
+
+                            th {
+                                background-color: #f2f2f2;
+                                border: 1px solid #dddddd;
+                                padding: 10px;
+                                text-align: left;
+                            }
+
+                            td {
+                                border: 1px solid #dddddd;
+                                padding: 10px;
+                            }
+
+                            tr:hover {
+                                background-color: #e6f7ff;
+                            }
+                        </style>
+
+                        <table>
+                            <tr>
+                                <th>Date/Time</th>
+                                <th>Expense Type</th>
+                                <th>Site</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total Price</th>
+                            </tr>
+                            {% for student in students %}
+                            <tr>
+                                <td>{{student[2]}}</td>
+                                <td>{{student[3]}}</td>
+                                <td>{{student[4]}}</td>
+                                <td>{{student[5]}}</td>
+                                <td>{{student[6]}}</td>
+                                <td>{{student[7]}}</td>
+                                <td>{{student[8]}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    </div>
+    </body>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/chart.js') }}"></script>
+<script>
+    var expenseData = {{ expense_data | tojson }};
+    var expenseTypes = Array.from(new Set(expenseData.map(entry => entry[3])));
+    var expenseTotals = expenseTypes.map(type => {
+        return expenseData.filter(entry => entry[3] === type)
+            .reduce((total, entry) => total + parseFloat(entry[8]), 0);
+    });
+
+    var totalExpenses = expenseTotals.reduce((total, amount) => total + amount, 0);
+
+    document.getElementById('totalExpensesAmount').innerText = 'P' + totalExpenses.toFixed(2);
+
+    var ctx = document.getElementById('expenseGraphCanvas').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: expenseTypes,
+            datasets: [{
+                label: 'Total Expenses',
+                data: expenseTotals,
+                backgroundColor: 'rgba(128, 0, 128, 0.2)',
+                borderColor: 'rgba(128, 0, 128, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    document.getElementById('expenseSummarySection').style.display = 'none';
+    document.getElementById('expenseTrackerSection').style.display = 'block';
+
+    function toggleVisibility() {
+        var expenseSummarySection = document.getElementById('expenseSummarySection');
+        var expenseTrackerSection = document.getElementById('expenseTrackerSection');
+
+        if (expenseSummarySection.style.display === 'block') {
+            expenseSummarySection.style.display = 'none';
+            expenseTrackerSection.style.display = 'block';
+        } else {
+            expenseSummarySection.style.display = 'block';
+            expenseTrackerSection.style.display = 'none';
+        }
+    }
+	
+	document.addEventListener('DOMContentLoaded', function () {
+		var filterForm = document.getElementById('filterForm');
+		filterForm.addEventListener('submit', function (event) {
+			event.preventDefault();
+
+			var selectedDate = filterForm.elements['selected_date'].value;
+			var expenseFilter = filterForm.elements['expense_filter'].value;
+			var siteFilter = filterForm.elements['site_filter'].value;
+			var searchQuery = filterForm.elements['search_query'].value;
+
+			filterForm.action = "{{ url_for('index') }}" +
+				"?selected_date=" + encodeURIComponent(selectedDate) +
+				"&expense_filter=" + encodeURIComponent(expenseFilter) +
+				"&site_filter=" + encodeURIComponent(siteFilter) +
+				"&search_query=" + encodeURIComponent(searchQuery);
+
+        filterForm.submit();
+    });
+});
+
+</script>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+</html>
